@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  role      String   @default("SENDER") // SENDER, COURIER, ADMIN (using String since SQLite doesn't have true enums)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  
+  orders    Order[]  @relation("SenderOrders")
+  deliveries Order[] @relation("CourierOrders")
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderCode       String      @unique
+  senderId        String
+  sender          User        @relation("SenderOrders", fields: [senderId], references: [id])
+  courierId       String?
+  courier         User?       @relation("CourierOrders", fields: [courierId], references: [id])
+  
+  pickupAddress   String
+  pickupLat       Float
+  pickupLng       Float
+  destAddress     String
+  destLat         Float
+  destLng         Float
+  
+  itemType        String
+  itemWeight      Float
+  itemDescription String?
+  
+  distance        Float
+  basePrice       Float
+  totalPrice      Float
+  paymentMethod   String
+  paymentStatus   String      @default("UNPAID")
+  
+  status          String      @default("PENDING")
+  
+  proofPhotoUrl   String?
+  cancelReason    String?
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  statusLogs      StatusLog[]
+}
+
+model StatusLog {
+  id        String      @id @default(uuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    String
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+model CourierLocation {
+  id        String   @id @default(uuid())
+  courierId String   @unique
+  lat       Float
+  lng       Float
+  updatedAt DateTime @updatedAt
+}
