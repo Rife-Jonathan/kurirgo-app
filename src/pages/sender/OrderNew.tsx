@@ -95,7 +95,7 @@ export default function OrderNew() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">Item Type</label>
-              <select className="w-full px-4 py-2 border rounded-xl" value={form.itemType} onChange={e => {setForm({...form, itemType: e.target.value}); setEstimate(null);}}>
+              <select className="w-full px-4 py-2 border rounded-xl" value={form.itemType} onChange={e => {setForm({...form, itemType: e.target.value});}}>
                 <option value="DOCUMENT">Document</option>
                 <option value="SMALL_PACKAGE">Small Package</option>
                 <option value="MEDIUM_PACKAGE">Medium Package</option>
@@ -104,7 +104,7 @@ export default function OrderNew() {
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Weight (kg)</label>
-              <input type="number" min="0.1" step="0.1" className="w-full px-4 py-2 border rounded-xl" value={form.itemWeight} onChange={e => {setForm({...form, itemWeight: parseFloat(e.target.value)}); setEstimate(null);}} />
+              <input type="number" min="0.1" step="0.1" className="w-full px-4 py-2 border rounded-xl" value={form.itemWeight} onChange={e => {setForm({...form, itemWeight: parseFloat(e.target.value)});}} />
             </div>
           </div>
 
