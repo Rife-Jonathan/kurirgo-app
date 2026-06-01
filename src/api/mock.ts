@@ -58,7 +58,10 @@ export const mockApiClient = async (endpoint: string, options: any = {}) => {
     // Return dummy estimate
     const urlParams = new URLSearchParams(endpoint.split('?')[1]);
     const weight = parseFloat(urlParams.get('itemWeight') || '1');
-    return { distance: 5.2, basePrice: 15000, totalPrice: 15000 + (weight * 2000) };
+    const distance = 5.2;
+    const distancePrice = distance * 2000;
+    const basePrice = 15000;
+    return { distance, distancePrice, basePrice, totalPrice: basePrice + distancePrice + (weight * 1000) };
   }
 
   if (endpoint === '/orders' && method === 'POST') {
