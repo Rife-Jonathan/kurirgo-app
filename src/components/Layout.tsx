@@ -19,6 +19,12 @@ export default function Layout() {
   };
 
   const role = user.role.toLowerCase(); // sender, courier, admin
+  const roleBasePath = `/${role}`;
+  const isAuthorizedPath = location.pathname.startsWith(roleBasePath);
+
+  if (!isAuthorizedPath) {
+    return <Navigate to={`${roleBasePath}/dashboard`} replace />;
+  }
 
   const navLinks = {
     sender: [

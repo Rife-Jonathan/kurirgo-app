@@ -3,7 +3,7 @@ import { apiClient } from '../../api/client';
 import toast from 'react-hot-toast';
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<any>({ totalOrdersToday: 0, activeOrders: 0, completedOrders: 0, activeCouriers: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

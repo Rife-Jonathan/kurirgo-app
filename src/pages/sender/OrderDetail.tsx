@@ -31,7 +31,7 @@ export default function OrderDetail() {
     
     socket.on("order:status_updated", (data: any) => {
       if (data.orderId === id) {
-        toast.info("Order status updated to " + (data.status) + "");
+        toast("Order status updated to " + (data.status) + "");
         fetchOrder();
       }
     });
@@ -147,7 +147,7 @@ export default function OrderDetail() {
           {order.proofPhotoUrl && (
             <div className="mt-4 pt-4 border-t">
               <h3 className="font-bold text-sm text-gray-700 mb-2">Proof of Delivery</h3>
-              <img src={order.proofPhotoUrl.startsWith('http') ? order.proofPhotoUrl : "" + (import.meta.env.VITE_API_URL || '') + "" + (order.proofPhotoUrl) + "".replace('/api/uploads', '/uploads')} alt="Proof" className="w-full rounded-xl border" />
+              <img src={order.proofPhotoUrl.startsWith('http') ? order.proofPhotoUrl : `${import.meta.env.VITE_API_URL || ''}${order.proofPhotoUrl}`.replace('/api/uploads', '/uploads')} alt="Proof" className="w-full rounded-xl border" />
             </div>
           )}
         </div>

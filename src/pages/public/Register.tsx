@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
 import { apiClient } from '../../api/client';
@@ -14,7 +14,7 @@ export default function Register() {
   const navigate = useNavigate();
   const login = useAuthStore(state => state.login);
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
